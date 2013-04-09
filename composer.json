@@ -1,0 +1,53 @@
+{
+    "name": "yiinitializr/basic",
+    "description": "Basic project structure for Yii PHP framework.",
+    "keywords": ["yii", "application", "web", "boilerplate", "template"],
+    "homepage": "http://2amigos.us",
+    "type": "yii-application",
+    "license": "BSD-3-Clause",
+    "description": "description_text",
+    "minimum-stability": "dev",
+    "config": {
+        "vendor-dir": "common/lib/vendor"
+    },
+    "authors": [
+        {
+            "name": "Antonio Ramirez Cobos",
+            "email": "amigo.cobos@gmail.com",
+            "homepage": "http://www.ramirezcobos.com"
+        },
+        {
+            "name": "Matt Tabin",
+            "email": "amigo.tabin@gmail.com",
+            "homepage": "http://2amigos.us"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "http://packages.phundament.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii": "dev-master",
+        "yii-twbs/yiistrap": "dev-master",
+        "2amigos/yiiwheels": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "Yiinitializr": "common/lib/"
+        }
+    },
+    "scripts": {
+        "pre-install-cmd": "Yiinitializr\\Composer\\Callback::preInstall",
+        "post-install-cmd": "Yiinitializr\\Composer\\Callback::postInstall",
+        "pre-update-cmd": "Yiinitializr\\Composer\\Callback::preUpdate",
+        "post-update-cmd": "Yiinitializr\\Composer\\Callback::postUpdate",
+        "post-package-install": [
+            "Yiinitializr\\Composer\\Callback::postPackageInstall"
+        ],
+        "post-package-update": [
+            "Yiinitializr\\Composer\\Callback::postPackageUpdate"
+        ]
+    }
+}
