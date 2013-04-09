@@ -37,7 +37,7 @@ Initializer::create('./../', 'frontend', array(
 ))->run();
 ```
 
-For more information about Yiinitializr please check it at [its github repo](https://github/2amigos/yiinitializr).
+For more information about Yiinitializr please check it at [its github repo](https://github.com/2amigos/yiinitializr).
 
 ## Overall Structure
 
