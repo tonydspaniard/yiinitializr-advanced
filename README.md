@@ -2,7 +2,7 @@ YIInitializr-advanced
 =======
 The following is a proposed project structure for advanced applications that works in conjunction with YIInitializr components. 
 
-YIInitializr vanilla projects make extensive use of Composer. We found at [2amigos.us](http://2amigos.us) that is easier to your extensions bundle outside of your application scope -thanks to Phundament3 and Tobias Schmunk for his knowledge and shares. Composer is your dependency package best friend. 
+YIInitializr vanilla projects make extensive use of Composer. We found at [2amigos.us](http://2amigos.us) that is easier to your extensions bundle outside of your application scope - thanks to [Phundament](http://phundament.com) and Tobias Munk for his knowledge and shares. Composer is your dependency package best friend. 
 
 The package is cleaned from extensions, you choose what you wish to include in your composer.json files. The only ones included are Yii Framework (obviously), [YiiStrap](https://github.com/yii-twbs/yiistrap) and [YiiWheels](https://github.com/2amigos/yiiwheels), the rest is up to you. We do not want to confuse you. 
 
