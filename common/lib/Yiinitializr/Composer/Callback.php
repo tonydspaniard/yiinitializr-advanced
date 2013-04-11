@@ -161,7 +161,6 @@ class Callback
 	{
 		if (!is_file(Config::value('yii.path') . '/yii.php'))
 		{
-			Console::output("%BWarning:%n Yii framework path is wrong at the settings or not yet installed :).\n");
 			// nothing yet installed, return
 			return null;
 		}
