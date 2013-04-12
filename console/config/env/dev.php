@@ -16,15 +16,16 @@ return array(
 		),
 	),
 	'components' => array(
-		'db' => array(
-			'connectionString' => '{DB_CONNECTION}',
-			'username' => '{DB_USER}',
-			'password' => '{DB_PASSWORD}',
-			'enableProfiling' => YII_DEBUG,
-			'enableParamLogging' => YII_DEBUG,
-			'charset' => 'utf8',
-		),
-	),
+//		configure to suit your needs
+//		'db' => array(
+//			'connectionString' => '{DB_CONNECTION}',
+//			'username' => '{DB_USER}',
+//			'password' => '{DB_PASSWORD}',
+//			'enableProfiling' => YII_DEBUG,
+//			'enableParamLogging' => YII_DEBUG,
+//			'charset' => 'utf8',
+//		),
+//	),
 	'params' => array(
 		'yii.handleErrors'   => YII_DEBUG,
 		'yii.debug' => YII_DEBUG,

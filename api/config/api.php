@@ -31,14 +31,6 @@ return array(
 		'application.models.*',
 	),
 	'components' => array(
-		'db' => array(
-			'connectionString' => '{CONNECTION_STRING}',
-			'username' => '{USERNAME}',
-			'password' => '{PASSWORD}',
-			'enableProfiling' => YII_DEBUG,
-			'enableParamLogging' => YII_DEBUG,
-			'charset' => 'utf8',
-		),
 		'errorHandler' => array(
 			'errorAction' => 'site/error',
 			'class' => 'EApiErrorHandler'
