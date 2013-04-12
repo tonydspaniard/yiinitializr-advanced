@@ -72,7 +72,7 @@ class Callback
 		Console::output("* triggers composer callbacks (yiic commands)\n");
 
 		if (Console::confirm("Start Installation?"))
-			self::runHook('pre-install', $event);
+			self::runHook('pre-install');
 		else
 			exit("\n%RInstallation aborted%n.\n");
 	}
@@ -84,7 +84,7 @@ class Callback
 	 */
 	public static function postInstall(Event $event)
 	{
-		self::runHook('post-install', $event);
+		self::runHook('post-install');
 		Console::output("\n%GInstallation completed!%n\n");
 	}
 
@@ -97,7 +97,7 @@ class Callback
 	public static function preUpdate(Event $event)
 	{
 		Console::output("Updating your application to the latest available packages...");
-		self::runHook('pre-update', $event);
+		self::runHook('pre-update');
 	}
 
 	/**
@@ -108,7 +108,7 @@ class Callback
 	 */
 	public static function postUpdate(Event $event)
 	{
-		self::runHook('post-update', $event);
+		self::runHook('post-update');
 		Console::output("%GUpdate completed.%n");
 	}
 
@@ -122,7 +122,7 @@ class Callback
 	{
 		$installedPackage = $event->getOperation()->getPackage();
 		$hookName = $installedPackage->getPrettyName() . '-install';
-		self::runHook($hookName, $event);
+		self::runHook($hookName);
 	}
 
 	/**
@@ -135,23 +135,15 @@ class Callback
 	{
 		$installedPackage = $event->getOperation()->getTargetPackage();
 		$commandName = $installedPackage->getPrettyName() . '-update';
-		self::runHook($commandName, $event);
+		self::runHook($commandName);
 	}
 
 	/**
 	 * Runs Yii command, if available (defined in config.php)
-	 * @param $name
-	 * @param \Composer\Script\Event $event
 	 */
-	private static function runHook($name, $event)
+	private static function runHook($name)
 	{
-		$env = $event->getComposer()->getPackage()->getExtra();
-		$env = is_array($env)
-			? $env[0]
-			: null;
-
-		$app = self::getYiiApplication($env);
-
+		$app = self::getYiiApplication();
 		if ($app === null) return;
 
 		if (isset($app->params['composer.callbacks'][$name]))
@@ -164,12 +156,8 @@ class Callback
 
 	/**
 	 * Creates console application, if Yii is available
-	 *
-	 * @param string $env
-	 * @return \CApplication|\CConsoleApplication|null
-	 * @throws \Exception
 	 */
-	private static function getYiiApplication($env=null)
+	private static function getYiiApplication()
 	{
 		if (!is_file(Config::value('yii.path') . '/yii.php'))
 		{
@@ -186,8 +174,7 @@ class Callback
 
 			if (!Config::value('envlock'))
 			{
-				if(null === $env)
-					$env = Console::prompt('Please, enter your environment -ie. "dev | prod | stage": ', array('default' => 'dev'));
+				$env = Console::prompt('Please, enter your environment -ie. "dev | prod | stage": ', array('default' => 'dev'));
 				Initializer::buildEnvironmentFiles($env);
 			} else
 			{
@@ -211,5 +198,4 @@ class Callback
 		}
 		return $app;
 	}
-
 }
