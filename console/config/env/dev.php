@@ -25,7 +25,7 @@ return array(
 //			'enableParamLogging' => YII_DEBUG,
 //			'charset' => 'utf8',
 //		),
-//	),
+	),
 	'params' => array(
 		'yii.handleErrors'   => YII_DEBUG,
 		'yii.debug' => YII_DEBUG,
