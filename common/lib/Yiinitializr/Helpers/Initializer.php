@@ -17,7 +17,7 @@ use Yiinitializr\Cli\Console;
 /**
  * Initializer provides a set of useful functions to initialize a Yii Application development.
  *
- * @author Antonio Ramirez <ramirez.cobos@gmail.com>
+ * @author Antonio Ramirez <amigo.cobos@gmail.com>
  * @package Yiinitializr.helpers
  * @since 1.0
  */
@@ -61,8 +61,7 @@ class Initializer
 	 */
 	public static function config($configName = 'main', $mergeWith = null)
 	{
-
-		$files = array();
+		$files = array($configName);
 		$directory = Config::value('yiinitializr.app.directories.config.' . $configName);
 		if (null === $directory)
 			throw new \Exception("Unable to find 'yiinitializr.app.directories.config.'{$configName} on the settings.");
@@ -70,21 +69,12 @@ class Initializer
 		if (null !== $mergeWith)
 		{
 			if (is_array($mergeWith))
-				$files = ArrayX::merge($files, $mergeWith);
+			{
+				foreach($mergeWith as $file)
+					$files[] = $file;
+			}
 			else
 				$files[] = $mergeWith;
-		}
-		// add main configuration file now
-		$files[] = $configName;
-
-		// do we have any other configuration files to merge with?
-		$mergedSettingFiles = Config::value('yiinitializr.app.files.config.' . $configName);
-		if (null !== $mergedSettingFiles)
-		{
-			if (is_array($mergedSettingFiles))
-				$files = ArrayX::merge($files, $mergedSettingFiles);
-			else
-				$files[] = $mergedSettingFiles;
 		}
 
 		$config = self::build($directory, $files);
@@ -182,7 +172,7 @@ class Initializer
 
 				if (!file_exists($environment_file))
 				{
-					file_put_contents($environment_file, "<?php\n/**\n * {$environment}.php\n */\n\nreturn array(\n);");
+					file_put_contents($environment_file, "<?php\n/**\n * {$env}.php\n */\n\nreturn array(\n);");
 					@chmod($environment_file, 0644);
 
 					self::output("%gEnvironment configuration file has been created: %r{$environment_file}%n.\n");
@@ -193,9 +183,10 @@ class Initializer
 
 					self::output("Your environment configuration file has been created on {$directory}.\n");
 				} else
-					self::output("'{$directory}/env.php'\n%pfile already exists. No action has been executed.%n");
+					self::output("'{$directory}/env.php' \n%pfile already exists. No action has been executed.%n");
 			}
 		}
+		Config::createEnvironmentLockFile($environment);
 		self::output("%gEnvironment files creation process finished.%n\n");
 	}
 
@@ -223,9 +214,9 @@ class Initializer
 				@mkdir($runtime, 02777);
 				self::output("Your {$name} folder has been created on {$directory}.");
 			} else
-				self::output("'{$name}' %pfolder already exists. No action has been executed.%n");
+				self::output("'{$name}'\n%pfolder already exists. No action has been executed.%n");
 		}
-		self::output("%gRuntime '{$name}' folders creation process finished.%n");
+		self::output("\n%gRuntime '{$name}'' folders creation process finished.%n");
 	}
 
 	/**

@@ -11,10 +11,11 @@
 namespace Yiinitializr\Helpers;
 
 use Yiinitializr\Helpers\ArrayX;
+
 /**
  * Config provides easy access to Yiinitializr configuration file
  *
- * @author Antonio Ramirez <ramirez.cobos@gmail.com>
+ * @author Antonio Ramirez <amigo.cobos@gmail.com>
  * @package Yiinitializr.helpers
  * @since 1.0
  */
@@ -24,6 +25,9 @@ class Config
 	 * @var array the configuration settings
 	 */
 	private static $_settings;
+
+	private static $_config_dir_path;
+	private static $_envlock_file_path;
 
 	/**
 	 * Returns a value of the array
@@ -42,15 +46,49 @@ class Config
 	 */
 	public static function settings()
 	{
-		if(null === self::$_settings )
+		if (null === self::$_settings)
 		{
-			self::$_settings = file_exists( dirname(__FILE__) . '/../config/settings.php')
-				? require_once( dirname(__FILE__) . '/../config/settings.php')
+			self::$_settings = file_exists(self::getConfigurationDirectoryPath() . '/settings.php')
+				? require_once(self::getConfigurationDirectoryPath() . '/settings.php')
 				: array();
+			self::$_settings['envlock'] = file_exists(self::getEnvironmentLockFilePath());
+
 		}
-		if(empty(self::$_settings))
+		if (empty(self::$_settings))
 			throw new \Exception('Unable to find Yiinitialzr settings file!');
 
 		return self::$_settings;
+	}
+
+	/**
+	 * @param string $content
+	 */
+	public static function createEnvironmentLockFile($content = '')
+	{
+		umask(0);
+		file_put_contents(self::getEnvironmentLockFilePath(), $content);
+		@chmod(self::getEnvironmentLockFilePath(), 0644);
+	}
+
+	/**
+	 * Returns the configuration directory path
+	 * @return string
+	 */
+	public static function getConfigurationDirectoryPath()
+	{
+		if (null === self::$_config_dir_path)
+			self::$_config_dir_path = dirname(__FILE__) . '/../config';
+		return self::$_config_dir_path;
+	}
+
+	/**
+	 * Returns the environment lock file path
+	 * @return string
+	 */
+	public static function getEnvironmentLockFilePath()
+	{
+		if (null === self::$_envlock_file_path)
+			self::$_envlock_file_path = self::getConfigurationDirectoryPath() . '/env.lock';
+		return self::$_envlock_file_path;
 	}
 }

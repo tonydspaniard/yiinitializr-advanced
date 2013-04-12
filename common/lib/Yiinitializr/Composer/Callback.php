@@ -25,16 +25,16 @@
  *
  * composer.json
  *   "scripts": {
- *			"pre-install-cmd": "Yiinitialzr\\Composer\\Callback::preInstall",
- *        	"post-install-cmd": "Yiinitialzr\\Composer\\Callback::postInstall",
- *        	"pre-update-cmd": "Yiinitialzr\\Composer\\Callback::preUpdate",
- *        	"post-update-cmd": "Yiinitialzr\\Composer\\Callback::postUpdate",
- *        	"post-package-install": [
- *            	"Yiinitialzr\\Composer\\Callback::postPackageInstall"
- *        	],
- *        	"post-package-update": [
- *          	"Yiinitialzr\\Composer\\Callback::postPackageUpdate"
- *        	]
+ *            "pre-install-cmd": "Yiinitialzr\\Composer\\Callback::preInstall",
+ *            "post-install-cmd": "Yiinitialzr\\Composer\\Callback::postInstall",
+ *            "pre-update-cmd": "Yiinitialzr\\Composer\\Callback::preUpdate",
+ *            "post-update-cmd": "Yiinitialzr\\Composer\\Callback::postUpdate",
+ *            "post-package-install": [
+ *                "Yiinitialzr\\Composer\\Callback::postPackageInstall"
+ *            ],
+ *            "post-package-update": [
+ *            "Yiinitialzr\\Composer\\Callback::postPackageUpdate"
+ *            ]
  * }
  *
  *
@@ -72,7 +72,7 @@ class Callback
 		Console::output("* triggers composer callbacks (yiic commands)\n");
 
 		if (Console::confirm("Start Installation?"))
-			self::runHook('pre-install');
+			self::runHook('pre-install', $event);
 		else
 			exit("\n%RInstallation aborted%n.\n");
 	}
@@ -84,7 +84,7 @@ class Callback
 	 */
 	public static function postInstall(Event $event)
 	{
-		self::runHook('post-install');
+		self::runHook('post-install', $event);
 		Console::output("\n%GInstallation completed!%n\n");
 	}
 
@@ -97,7 +97,7 @@ class Callback
 	public static function preUpdate(Event $event)
 	{
 		Console::output("Updating your application to the latest available packages...");
-		self::runHook('pre-update');
+		self::runHook('pre-update', $event);
 	}
 
 	/**
@@ -108,7 +108,7 @@ class Callback
 	 */
 	public static function postUpdate(Event $event)
 	{
-		self::runHook('post-update');
+		self::runHook('post-update', $event);
 		Console::output("%GUpdate completed.%n");
 	}
 
@@ -122,7 +122,7 @@ class Callback
 	{
 		$installedPackage = $event->getOperation()->getPackage();
 		$hookName = $installedPackage->getPrettyName() . '-install';
-		self::runHook($hookName);
+		self::runHook($hookName, $event);
 	}
 
 	/**
@@ -135,15 +135,23 @@ class Callback
 	{
 		$installedPackage = $event->getOperation()->getTargetPackage();
 		$commandName = $installedPackage->getPrettyName() . '-update';
-		self::runHook($commandName);
+		self::runHook($commandName, $event);
 	}
 
 	/**
 	 * Runs Yii command, if available (defined in config.php)
+	 * @param $name
+	 * @param \Composer\Script\Event $event
 	 */
-	private static function runHook($name)
+	private static function runHook($name, $event)
 	{
-		$app = self::getYiiApplication();
+		$env = $event->getComposer()->getPackage()->getExtra();
+		$env = is_array($env)
+			? $env[0]
+			: null;
+
+		$app = self::getYiiApplication($env);
+
 		if ($app === null) return;
 
 		if (isset($app->params['composer.callbacks'][$name]))
@@ -156,8 +164,12 @@ class Callback
 
 	/**
 	 * Creates console application, if Yii is available
+	 *
+	 * @param string $env
+	 * @return \CApplication|\CConsoleApplication|null
+	 * @throws \Exception
 	 */
-	private static function getYiiApplication()
+	private static function getYiiApplication($env=null)
 	{
 		if (!is_file(Config::value('yii.path') . '/yii.php'))
 		{
@@ -172,9 +184,17 @@ class Callback
 		if (\Yii::app() === null)
 		{
 
-			$env = Console::prompt('Please, enter your environment -ie. "dev | prod | stage": ', array('default' => 'dev'));
-
-			Initializer::buildEnvironmentFiles($env);
+			if (!Config::value('envlock'))
+			{
+				if(null === $env)
+					$env = Console::prompt('Please, enter your environment -ie. "dev | prod | stage": ', array('default' => 'dev'));
+				Initializer::buildEnvironmentFiles($env);
+			} else
+			{
+				Console::output("\n%Benv.lock%n file found. No environment request required.\n");
+				Console::output("Note: if you wish to re-do enviroment setting merging, please remove the %Benv.lock%n file " .
+					"from the Yiinitializr %Bconfig%n folder.");
+			}
 
 			Initializer::createRuntimeFolders();
 
