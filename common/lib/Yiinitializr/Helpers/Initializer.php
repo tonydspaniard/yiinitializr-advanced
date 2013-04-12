@@ -138,8 +138,10 @@ class Initializer
 
 		// php config
 		error_reporting(-1);
-		ini_set('display_errors', YII_DEBUG);
-		ini_set('default_charset', $params['php.defaultCharset']);
+		if(isset($params['php.defaultCharset']))
+			ini_set('default_charset', $params['php.defaultCharset']);
+		if(isset($params['php.timezone']))
+			date_default_timezone_set($params['php.timezone']);
 
 		date_default_timezone_set($params['php.timezone']);
 
