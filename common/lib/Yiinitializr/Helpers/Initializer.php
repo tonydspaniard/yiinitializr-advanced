@@ -77,6 +77,16 @@ class Initializer
 				$files[] = $mergeWith;
 		}
 
+		// do we have any other configuration files to merge with?
+		$mergedSettingFiles = Config::value('yiinitializr.app.files.config.' . $configName);
+		if (null !== $mergedSettingFiles)
+		{
+			if (is_array($mergedSettingFiles))
+				$files = ArrayX::merge($files, $mergedSettingFiles);
+			else
+				$files[] = $mergedSettingFiles;
+		}
+
 		$config = self::build($directory, $files);
 
 		$params = isset($config['params'])
