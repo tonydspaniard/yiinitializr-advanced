@@ -11,13 +11,13 @@ The package is cleaned from extensions, you choose what you wish to include in y
 
   * Set up Git by following the instructions [here](https://help.github.com/articles/set-up-git).
   * Update the configurations in `api/config/`, `frontend/config/`, `console/config/`, `backend/config/` and `common/config/` to suit your needs. The `common/config/main.php` is configured to use **sqllite** by default. Change your `common/config/env/dev.php` to suit your database requirements.
- * Composer is required The package includes already a `composer.phar` file. 
+ * Composer is required The package includes already a `composer.phar` file.
  * Browse through the `composer.json` and remove the dependencies you don't need also update the required versions of the extensions.
  * If you have `composer` installed globally:
-	 * Run `composer self-update` to make sure you have the latest version of composer. 
+	 * Run `composer self-update` to make sure you have the latest version of composer.
 	 * Run `composer install` to download all the dependencies.
- * If you work the `composer.phar` library within the project boilerplate. 
- 	 * Run `php composer.phar self-update` to make sure you have the latest version of composer. 
+ * If you work the `composer.phar` library within the project boilerplate.
+ 	 * Run `php composer.phar self-update` to make sure you have the latest version of composer.
 	 * Run `php composer.phar install` to download all the dependencies.
  * `Yiinitializr\Composer\Callback` will configure everything required on your application: `runtime` and `assets` folders and migrations.
 

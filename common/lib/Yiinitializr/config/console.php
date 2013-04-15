@@ -21,7 +21,8 @@ return Yiinitializr\Helpers\ArrayX::merge(
 	Yiinitializr\Helpers\Initializer::config('console', array(
 		dirname(__FILE__) . '/../../../config/main.php',
 		dirname(__FILE__) . '/../../../config/env.php',
-		'local')),
+		dirname(__FILE__) . '/../../../config/local.php')
+	),
 	array(
 		'params' => array(
 			'composer.callbacks' => array(

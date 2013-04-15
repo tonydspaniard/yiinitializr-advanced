@@ -31,7 +31,7 @@ class Initializer
 	 * @return mixed
 	 * @throws Exception
 	 */
-	public static function create($root, $configName = 'main', $mergeWith = array('common', 'env'))
+	public static function create($root, $configName = 'main', $mergeWith = array())
 	{
 		if (($root = realpath($root)) === false)
 			throw new Exception('could not initialize framework.');
@@ -145,6 +145,8 @@ class Initializer
 
 		date_default_timezone_set($params['php.timezone']);
 
+		if(!class_exists('YiiBase'))
+			require(Config::value('yii.path').'/yii.php');
 	}
 
 	/**
