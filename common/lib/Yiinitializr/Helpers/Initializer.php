@@ -82,7 +82,10 @@ class Initializer
 		if (null !== $mergedSettingFiles)
 		{
 			if (is_array($mergedSettingFiles))
-				$files = ArrayX::merge($files, $mergedSettingFiles);
+			{
+				foreach($mergedSettingFiles as $file)
+					$files[] = $file;
+			}
 			else
 				$files[] = $mergedSettingFiles;
 		}
