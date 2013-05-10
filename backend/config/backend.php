@@ -17,7 +17,7 @@ return array(
 	// path aliases
 	'aliases' => array(
 		// assumed the use of yiistrap and yiiwheels extensions
-		'bootstrap' => 'vendor.yii-twbs.yiistrap',
+		'bootstrap' => 'vendor.2amigos.yiistrap',
 		'yiiwheels' => 'vendor.2amigos.yiiwheels'
 	),
 
