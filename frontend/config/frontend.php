@@ -16,8 +16,8 @@ return array(
 	'basePath' => realPath(__DIR__ . '/..'),
 	// path aliases
 	'aliases' => array(
-		'bootstrap' => 'vendor.2amigos.yiistrap',
-		'yiiwheels' => 'vendor.2amigos.yiiwheels'
+		'bootstrap' => dirname(__FILE__) . '/../..' . '/common/lib/vendor/2amigos/yiistrap',
+		'yiiwheels' =>  dirname(__FILE__) . '/../..' . '/common/lib/vendor/2amigos/yiiwheels'
 	),
 
 	// application behaviors

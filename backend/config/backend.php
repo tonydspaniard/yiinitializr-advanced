@@ -17,8 +17,8 @@ return array(
 	// path aliases
 	'aliases' => array(
 		// assumed the use of yiistrap and yiiwheels extensions
-		'bootstrap' => 'vendor.2amigos.yiistrap',
-		'yiiwheels' => 'vendor.2amigos.yiiwheels'
+		'bootstrap' => dirname(__FILE__) . '/../..' . '/common/lib/vendor/2amigos/yiistrap',
+		'yiiwheels' =>  dirname(__FILE__) . '/../..' . '/common/lib/vendor/2amigos/yiiwheels'
 	),
 
 	// application behaviors
