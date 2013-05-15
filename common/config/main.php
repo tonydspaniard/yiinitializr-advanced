@@ -25,7 +25,9 @@ return array(
 		'application.controllers.*',
 		'application.extensions.*',
 		'application.helpers.*',
-		'application.models.*'
+		'application.models.*',
+		'vendor.2amigos.yiistrap.helpers.*',
+		'vendor.2amigos.yiiwheels.helpers.*',
 	),
 	'components' => array(
 		'db'=>array(
