@@ -1,6 +1,6 @@
 {
-    "name": "yiinitializr/basic",
-    "description": "Basic project structure for Yii PHP framework.",
+    "name": "yiinitializr/advanced",
+    "description": "Advanced project structure for Yii PHP framework.",
     "keywords": ["yii", "application", "web", "boilerplate", "template"],
     "homepage": "http://2amigos.us",
     "type": "yii-application",
