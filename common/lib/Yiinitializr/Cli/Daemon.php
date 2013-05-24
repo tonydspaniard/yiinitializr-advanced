@@ -10,7 +10,7 @@
  * @copyright 2013 2amigOS! Consultation Group LLC
  * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
  */
-namespace Yiinitializr\Clio;
+namespace Yiinitializr\Cli;
 /**
  * Daemon  provides helpers for starting and killing daemonized processes
  *
