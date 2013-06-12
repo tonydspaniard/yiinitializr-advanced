@@ -10,26 +10,19 @@
  */
 return array(
 	'basePath' => realPath(__DIR__ . '/..'),
-	'aliases' => array(
-		'frontend' => dirname(__FILE__) . '/../..' . '/frontend',
-		'common' => dirname(__FILE__) . '/../..' . '/common',
-		'backend' => dirname(__FILE__) . '/../..' . '/backend',
-		'vendor' => 'common.lib.vendor',
-		'YiiRestTools' => 'common.lib.YiiRestTools'
-	),
-	'import' => array(
-		'common.extensions.components.*',
-		'common.components.*',
-		'common.helpers.*',
-		'common.models.*',
-		'application.controllers.*',
-		'application.extensions.*',
-		'application.extensions.components.*',
-		'application.extensions.behaviors.*',
-		'application.extensions.filters.*',
-		'application.helpers.*',
-		'application.models.*',
-	),
+    'aliases'    => array(
+        'frontend'     => dirname(__FILE__) . '/../../frontend',
+        'common'       => dirname(__FILE__) . '/../../common',
+        'backend'      => dirname(__FILE__) . '/../../backend',
+        'vendor'       => dirname(__FILE__) . '/../../common/lib/vendor',
+        'YiiRestTools' => dirname(__FILE__) . '/../../common/lib/YiiRestTools',
+        'Yiinitializr' => dirname(__FILE__) . '/../../common/lib/Yiinitializr'
+    ),
+    'import'     => array(
+        'application.extensions.components.*',
+        'application.extensions.behaviors.*',
+        'application.extensions.filters.*',
+    ),
 	'components' => array(
 		'errorHandler' => array(
 			'errorAction' => 'site/error',

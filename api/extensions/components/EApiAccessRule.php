@@ -1,4 +1,6 @@
 <?php
+use YiiRestTools\Helpers\RequestData;
+use Yiinitializr\Helpers\ArrayX;
 /**
  * EApiAccessRule
  *

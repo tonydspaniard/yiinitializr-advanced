@@ -10,8 +10,6 @@
  * @copyright 2013 2amigOS! Consultation Group LLC
  * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
  */
-use YiiRestTools\Helpers\RequestData;
-use Yiinitializr\Helpers\ArrayX;
 
 class EApiAccessControlFilter extends CAccessControlFilter
 {
