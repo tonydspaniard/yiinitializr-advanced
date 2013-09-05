@@ -33,6 +33,8 @@ index
 # configuration files
 /api/config/env.php
 /api/config/local.php
+/common/config/env.php
+/common/config/local.php
 /console/config/env.php
 /console/config/local.php
 /backend/config/env.php
