@@ -43,11 +43,11 @@ return array(
 			'showScriptName' => false,
 			'rules' => array(
 				// REST patterns
-				array('<controller>/index', 	'pattern' => 'api/<controller:\w+>', 		'verb' => 'POST'),
-				array('<controller>/view', 		'pattern' => 'api/<controller:\w+>/view', 	'verb' => 'POST'),
-				array('<controller>/update', 	'pattern' => 'api/<controller:\w+>/update', 'verb' => 'PUT'),
+				array('<controller>/index', 	'pattern' => 'api/<controller:\w+>', 		'verb' => 'GET'),
+				array('<controller>/view', 		'pattern' => 'api/<controller:\w+>/view', 	'verb' => 'GET'),
+				array('<controller>/update', 	'pattern' => 'api/<controller:\w+>/update', 'verb' => 'POST'),
 				array('<controller>/delete', 	'pattern' => 'api/<controller:\w+>/delete', 'verb' => 'DELETE'),
-				array('<controller>/create', 	'pattern' => 'api/<controller:\w+>/create', 'verb' => 'POST'),
+				array('<controller>/create', 	'pattern' => 'api/<controller:\w+>/create', 'verb' => 'PUT'),
 			),
 		)
 	)
