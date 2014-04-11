@@ -49,7 +49,16 @@ return array(
 					'common' => array('env', 'local'),
 					'api' => array('env', 'local')
 				)
-			)
+			),
+			/*
+			 * uncomment this lines to provide custom class for web and/or console
+			'web' => array(
+				'class' => $root . '/common/components/GWebApplication.php'
+			),
+			'console' => array(
+				'class' => $root . '/common/components/GConsoleApplication.php'
+			),
+			*/
 		),
 	)
 );

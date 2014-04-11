@@ -39,11 +39,11 @@ class Initializer
 		$config = self::config($configName, $mergeWith);
 
 		if (php_sapi_name() !== 'cli') // aren't we in console?
-			$app = \Yii::createWebApplication($config); // create web
+			$app = self::createApplication('web', $config); // create web
 		else
 		{
 			defined('STDIN') or define('STDIN', fopen('php://stdin', 'r'));
-			$app = \Yii::createConsoleApplication($config);
+			$app = self::createApplication('console', $config);
 			$app->commandRunner->addCommands($root . '/cli/commands');
 			$env = @getenv('YII_CONSOLE_COMMANDS');
 			if (!empty($env))
@@ -61,7 +61,7 @@ class Initializer
 	 */
 	public static function config($configName = 'main', $mergeWith = null)
 	{
-		$files = array($configName);
+		$files = array();
 		$directory = Config::value('yiinitializr.app.directories.config.' . $configName);
 		if (null === $directory)
 			throw new \Exception("Unable to find 'yiinitializr.app.directories.config.'{$configName} on the settings.");
@@ -76,6 +76,8 @@ class Initializer
 			else
 				$files[] = $mergeWith;
 		}
+		
+		$files[] = $configName;
 
 		// do we have any other configuration files to merge with?
 		$mergedSettingFiles = Config::value('yiinitializr.app.files.config.' . $configName);
@@ -244,5 +246,28 @@ class Initializer
 	{
 		if (php_sapi_name() === 'cli')
 			Console::output($message);
+	}
+	
+	/**
+	 * Creates an application of the specified type using the default class or the custom one found in settings.
+	 * @param string $type the application type, can be 'web' or 'console'
+	 * @param mixed $config application configuration. This parameter will be passed as the parameter
+	 * to the constructor of the application class.
+	 * @return mixed the application instance
+	 */
+	protected static function createApplication($type, $config)
+	{
+		$class = Config::value('yiinitializr.app.' . $type . '.class');
+		
+		if($class !== null && file_exists($class))
+		{
+			require_once $class;
+			$class = pathinfo($class, PATHINFO_FILENAME);
+		}
+		else $class = 'C'.ucfirst(strtolower($type)).'Application';
+		
+		$app = \Yii::createApplication($class, $config);
+		
+		return $app;
 	}
 }
