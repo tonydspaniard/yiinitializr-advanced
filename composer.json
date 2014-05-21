@@ -5,7 +5,6 @@
     "homepage": "http://2amigos.us",
     "type": "yii-application",
     "license": "BSD-3-Clause",
-    "description": "description_text",
     "minimum-stability": "dev",
     "config": {
         "vendor-dir": "common/lib/vendor"
