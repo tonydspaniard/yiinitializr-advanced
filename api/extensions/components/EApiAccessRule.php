@@ -23,31 +23,27 @@ class EApiAccessRule extends CAccessRule
 	 */
 	public function isRequestAllowed($user, $controller, $action, $ip, $verb)
 	{
-
 		if ($this->isActionMatched($action)
 			&& $this->isUserMatched(Yii::app()->user)
 			&& $this->isRoleMatched(Yii::app()->user)
-			&& $this->isSignatureMatched($user)
 			&& $this->isIpMatched($ip)
 			&& $this->isVerbMatched($verb)
 			&& $this->isControllerMatched($controller)
 		)
 		{
-			return $this->allow ? 1 : -1;
+			return ($this->allow && $this->checkSignature($user)) ? 1 : -1;
 		} else
 			return 0;
 	}
 
 	/**
-	 * Checks whether the policy and sig
+	 * Checks signature for the user.
 	 * @param ApiUser $user
 	 * @return bool
 	 * @throws EApiError
 	 */
-	public function isSignatureMatched($user)
+	public function checkSignature($user)
 	{
-
-
 		$requestArray = Yii::app()->getController()->getJsonInputAsArray();
 
 		if (empty($requestArray))
@@ -62,7 +58,6 @@ class EApiAccessRule extends CAccessRule
 
 		if (!$signature || !$expires)
 		{
-
 			throw new EApiError(
 				HHttp::ERROR_BADREQUEST,
 				HHttp::getErrorMessage(HHttp::ERROR_BADREQUEST)
