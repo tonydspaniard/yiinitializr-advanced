@@ -148,8 +148,6 @@ class Initializer
 		if(isset($params['php.timezone']))
 			date_default_timezone_set($params['php.timezone']);
 
-		date_default_timezone_set($params['php.timezone']);
-
 		if(!class_exists('YiiBase'))
 			require(Config::value('yii.path').'/yii.php');
 	}
