@@ -71,7 +71,7 @@ class Callback
 		Console::output("* configures your runtime folders");
 		Console::output("* triggers composer callbacks (yiic commands)\n");
 
-		if (Console::confirm("Start Installation?"))
+		if (!$event->getIO()->isInteractive() || Console::confirm("Start Installation?"))
 			self::runHook('pre-install');
 		else
 			exit("\n%RInstallation aborted%n.\n");
