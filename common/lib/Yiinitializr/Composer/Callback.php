@@ -52,6 +52,7 @@
  */
 namespace Yiinitializr\Composer;
 
+use Composer\Installer\PackageEvent;
 use Composer\Script\Event;
 use Yiinitializr\Helpers\Initializer;
 use Yiinitializr\Helpers\Config;
@@ -116,9 +117,9 @@ class Callback
 	 * Executes ./yiic <vendor/<packageName>-<action>
 	 *
 	 * @static
-	 * @param \Composer\Script\Event $event
+	 * @param \Composer\Installer\PackageEvent $event
 	 */
-	public static function postPackageInstall(Event $event)
+	public static function postPackageInstall(PackageEvent $event)
 	{
 		$installedPackage = $event->getOperation()->getPackage();
 		$hookName = $installedPackage->getPrettyName() . '-install';
@@ -129,9 +130,9 @@ class Callback
 	 * Executes ./yiic <vendor/<packageName>-<action>
 	 *
 	 * @static
-	 * @param \Composer\Script\Event $event
+	 * @param \Composer\Installer\PackageEvent $event
 	 */
-	public static function postPackageUpdate(Event $event)
+	public static function postPackageUpdate(PackageEvent $event)
 	{
 		$installedPackage = $event->getOperation()->getTargetPackage();
 		$commandName = $installedPackage->getPrettyName() . '-update';
